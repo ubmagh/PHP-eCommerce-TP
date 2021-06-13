@@ -1,8 +1,8 @@
-#\# Description
+# \# Description
  Little store app built with PHP, Mysql, JQuery and Bootstrap.
  Its objective, is to use Session variable to create a cart where the visitor can put products to buy them.
  
-#\# Use
+# \# Use
  - have a look on <code> DB/Connection.php </code> 
  - import DB <code> boutique.sql </code> 
  - You can load seeding data from <code> script.php </code> (i set 200 products)
