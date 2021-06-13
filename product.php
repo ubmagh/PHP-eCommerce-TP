@@ -51,7 +51,7 @@ require("./Parts/Header.php");
 
                                     <div class="row w-100 d-flex bottom-0 align-self-end pb-0 mb-0 pt-0" style="margin-top: -20px;">
                                         <div class="col-auto ms-auto text-center">
-                                            <small class="text-muted text-start"> prix unitaire : </small>
+                                            <small class="text-muted text-start me-auto ms-0"> prix unitaire : </small>
                                             <div class="rounded-2 px-3 pt-3 pb-0 border" style="border-style: dashed !important; border-width: 3px !important;">
                                                 <h3 class="h3 text-muted fw-normal"> Shipping : <span class="text-success fw-bold"><?= str_replace( '.', ',', $product['shipping']  ) ?> MAD</span></h3>
                                                 <hr>
@@ -62,7 +62,7 @@ require("./Parts/Header.php");
                                                     <input type="number" min="1" value="1" max="100" class="form-control form-control-lg text-center fw-bolder display-6" name="qte" aria-describedby="helpId" placeholder="Quantité">
                                                 </div>
                                                 <input type="hidden" name="productid" value="<?= $product['sku'] ?>">
-                                                <button type="button" id="" class="btn btn-warning btn-lg btn-block w-100"> <i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
+                                                <button type="submit" id="" class="btn btn-warning btn-lg btn-block w-100"> <i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
                                             </form>
                                         </div>
                                     </div>
@@ -77,12 +77,59 @@ require("./Parts/Header.php");
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Ajout au pannier </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-none" id="err">
+                        <div class="alert alert-warning py-3 my-0" role="alert">
+                            <h2 class="h3 text-center fw-normal"> <i class="fas fa-exclamation-circle"></i> Erreur dans les données envoyées ! </h2>
+                        </div>
+                    </div>
+                    <div class="d-none" id="succ">
+                        <div class="alert alert-success py-3 my-0" role="alert">
+                            <h2 class="h3 text-center fw-normal"> <i class="fas fa-check"></i> Produit Bien ajouté à votre panier ! </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
+    var modal = new bootstrap.Modal(document.getElementById('modal'), {
+        keyboard: false
+    })
+    document.getElementById('modal').addEventListener('hidden.bs.modal', function (event) {
+        $("#succ").addClass("d-none");
+        $("#err").addClass("d-none");
+    });
     function prevPage(){window.history.back()}
     $('#form').submit(e=>{
         e.preventDefault();
         // Ajax Here !!
+        const data = $('#form').serialize();
+        $.ajax({
+            url: '/api/addproducttocart.php',
+            type: 'POST',
+            data: data,
+            success: function(resp) {
+                $('#succ').removeClass('d-none');
+                $('#err').addClass('d-none');
+                modal.show();
+                if(resp.increment)
+                    $("#pannelCount").text( parseInt($("#pannelCount").text()) +1 );
+            },
+            error : function(resp){
+                $('#err').removeClass('d-none');
+                $('#succ').addClass('d-none');
+                modal.show();
+            }
+        });
     })
 </script>
 

@@ -17,8 +17,9 @@ echo "";?>
     <link rel="stylesheet" href="/assets/css/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/all.min.js"></script>
-</
+</head>
 <body>
 <div class="pageHeader">
     <nav class="navbar topnavbar navbar-dark container-fluid py-3">
