@@ -15,6 +15,7 @@
             </nav>
         </footer>
         <script src="/assets/js/jquery-ui.min.js"></script>
+        <script src="/assets/js/panier.js"></script>
     </body>
 </html>
 

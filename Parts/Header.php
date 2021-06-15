@@ -24,7 +24,7 @@ echo "";?>
 <div class="pageHeader">
     <nav class="navbar topnavbar navbar-dark container-fluid py-3">
         <div class="container text-center">
-            <a class="navbar-brand mx-auto " href="/index.php"> <h1 class="h1  fw-light"> <i class="fas fa-store"></i> Boutique </h1> </a>
+            <a class="navbar-brand mx-auto " href="/index.php"> <h1 class="h1 display-5 fw-light"> <i class="fas fa-store"></i> Boutique </h1> </a>
         </div>
     </nav>
     <?php require("./Parts/Pannier.php"); ?>
