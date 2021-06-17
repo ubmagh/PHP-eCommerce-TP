@@ -22,7 +22,12 @@ if( $jsonFile ){
 
     $ProductCatsQuery = $mysqli->prepare("INSERT IGNORE INTO product_categories VALUES (?, ?)");
     $ProductCatsQuery->bind_param( "is", $product_id, $category_id);
-    $rows = 200;
+
+
+    $rows = 100; // just 100
+
+
+
     foreach ( $jsonArray as $product ){
         if(!$rows) break;
         $rows --;
@@ -50,7 +55,7 @@ if( $jsonFile ){
     $categoriesQuery->close();
     $ProductCatsQuery->close();
     $productsQuery->close();
-    echo " 200 produits sont ajoutés avec succès + leurs catégories + affectation de chaque produit à certaines catégories  !";
+    echo $rows." produits sont ajoutés avec succès + leurs catégories + affectation de chaque produit à certaines catégories  !";
 }else{
     //error opening the file
     echo "Fichier 'products.json' est introuvable !";

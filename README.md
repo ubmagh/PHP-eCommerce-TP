@@ -5,7 +5,7 @@
 # \# Use
  - have a look on <code> DB/Connection.php </code> 
  - import DB <code> boutique.sql </code> 
- - You can load seeding data from <code> script.php </code> (i set 200 products)
+ - You can load seeding data from <code> script.php </code> (i set 100 products)
  - Run <code> $ php -S 127.0.0.1:80 -t ./ </code> in this directory to start the server.
 
 🍕
