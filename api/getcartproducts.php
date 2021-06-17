@@ -23,6 +23,7 @@
     $totalShippng = 0;
     foreach ($products as $product){
         $total += $product->Total;
+        $product->Total = number_format((float)$product->Total, 2, '.', '');
         $totalShippng += $product->shipping;
     }
 

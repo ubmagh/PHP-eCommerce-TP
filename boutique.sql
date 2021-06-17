@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 04:39 PM
+-- Generation Time: Jun 17, 2021 at 08:41 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -28,6 +28,8 @@ USE `boutique`;
 --
 -- Table structure for table `categories`
 --
+-- Creation: Jun 12, 2021 at 11:06 AM
+--
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` varchar(100) NOT NULL,
@@ -38,7 +40,45 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `commandes`
+--
+-- Creation: Jun 17, 2021 at 03:37 PM
+-- Last update: Jun 17, 2021 at 06:07 PM
+--
+
+CREATE TABLE IF NOT EXISTS `commandes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `UserCommands` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lignecommande`
+--
+-- Creation: Jun 17, 2021 at 03:39 PM
+-- Last update: Jun 17, 2021 at 06:07 PM
+--
+
+CREATE TABLE IF NOT EXISTS `lignecommande` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `commandeid` int(11) NOT NULL,
+  `productid` bigint(20) NOT NULL,
+  `Qte` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `LC_Commande` (`commandeid`),
+  KEY `LC_product` (`productid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
+--
+-- Creation: Jun 11, 2021 at 10:26 PM
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -61,6 +101,8 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 -- Table structure for table `product_categories`
 --
+-- Creation: Jun 12, 2021 at 11:08 AM
+--
 
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `product_id` bigint(20) NOT NULL,
@@ -69,9 +111,40 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   KEY `ManyCategories` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+-- Creation: Jun 17, 2021 at 12:58 PM
+-- Last update: Jun 17, 2021 at 02:22 PM
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `commandes`
+--
+ALTER TABLE `commandes`
+  ADD CONSTRAINT `UserCommands` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `lignecommande`
+--
+ALTER TABLE `lignecommande`
+  ADD CONSTRAINT `LC_Commande` FOREIGN KEY (`commandeid`) REFERENCES `commandes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `LC_product` FOREIGN KEY (`productid`) REFERENCES `products` (`sku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_categories`

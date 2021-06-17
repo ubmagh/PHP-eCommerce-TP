@@ -24,7 +24,7 @@ body{
 }
 @media (min-width: 992px) {
     body{
-        min-height: 110vh;
+        min-height: 130vh;
     }
 }
 
@@ -59,12 +59,18 @@ footer{
     background-size: cover;
     background-position-y: 10px;
     z-index: -10;
-    padding-bottom: 7em;
+    padding-bottom: 11em;
 }
 .content{
-    margin-top: -10rem;
+    margin-top: -12rem;
     margin-bottom: 3rem;
 }
-#CartModal{
-    max-height: 80 vh !important;
+
+
+.customBtn{
+    cursor: pointer;
+    color : #6c757d;
+}
+.customBtn:hover{
+    color: black;
 }
